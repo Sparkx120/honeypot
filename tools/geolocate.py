@@ -41,7 +41,8 @@ def process_file(raw_file, output_file):
                     time.sleep(API_TIME_RATE_LIMIT)
                 if tries == API_RETRY_LIMIT:
                     print("API Error {}!".format(status))
-                    exit(1)
+                if status != 200 or status != 204:
+                    exit(status)
                 fout.write(content + "\n")
 
 if __name__ == "__main__":
