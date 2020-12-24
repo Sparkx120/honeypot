@@ -38,11 +38,11 @@ def process_file(raw_file, output_file):
                     response = requests.get(API_ENDPOINT.format(ABSTRACT_API, ip_address))
                     status = response.status_code
                     content = response.content.decode('utf-8')
+                    time.sleep(API_TIME_RATE_LIMIT)
                 if tries == API_RETRY_LIMIT:
                     print("API Error {}!".format(status))
                     exit(1)
                 fout.write(content + "\n")
-                time.sleep(API_TIME_RATE_LIMIT)
 
 if __name__ == "__main__":
     if len(sys.argv) < 3 or len(sys.argv) > 3:
